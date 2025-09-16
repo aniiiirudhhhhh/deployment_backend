@@ -1,10 +1,9 @@
 const User = require("../models/User");
 const jwt = require("jsonwebtoken");
-// const { revokeToken } = require('../middleware/authMiddleware');
-// generate JWT token (expires in 7 days)
-//hello
+
+//JWT token
 const generateToken = (id, role) => {
-  return jwt.sign({ id, role }, process.env.JWT_SECRET, { expiresIn: "15m" });
+  return jwt.sign({ id, role }, process.env.JWT_SECRET, { expiresIn: "1d" });
 };
 
 // @desc Register Admin
@@ -62,10 +61,4 @@ exports.loginAdmin = async (req, res) => {
   }
 };
 
-exports.logoutAdmin = (req, res) => {
-  const token = req.headers.authorization?.split(" ")[1];
-  if (token) {
-    revokeToken(token);
-  }
-  res.json({ message: "Logged out successfully" });
-};
+
